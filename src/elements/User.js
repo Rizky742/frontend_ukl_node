@@ -11,13 +11,13 @@ function User() {
 
     useEffect(() => {
         fetchProduct();
-    },[])
+    }, [])
 
     const api = "http://localhost:4000/user";
 
     const fetchProduct = async () => {
         await axios.get(api, {
-            headers : {'Authorization': 'Bearer '+sessionStorage.getItem('token')}
+            headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
         })
             .then(result => {
                 setUser(result.data)
@@ -26,7 +26,7 @@ function User() {
                 console.log(error);
             })
     }
-  
+
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -34,7 +34,7 @@ function User() {
 
     const paginate = (number) => setCurrentPage(number)
 
-   
+
 
     function hapus(id) {
         swal({
@@ -43,32 +43,30 @@ function User() {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
-            if(willDelete) {
-              axios.delete(`http://localhost:4000/user/${id}`, {
-                headers : {'Authorization': 'Bearer '+sessionStorage.getItem('token')}
-              })
-              .then((res) => {
-                  console.log(res.data)
-                  if(res.data.status=="success"){
-                    swal("Sucess", "Sukses menghapus user", "success")
-                  }else{
-                      swal("Error", "Gagal menghapus user", "error")
-                  }
-                  fetchProduct()
-              })
-
-            }
         })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete(`http://localhost:4000/user/${id}`, {
+                        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+                    })
+                        .then((res) => {
+                            console.log(res.data)
+                            if (res.data.status == "success") {
+                                swal("Sucess", "Sukses menghapus user", "success")
+                            } else {
+                                swal("Error", "Gagal menghapus user", "error")
+                            }
+                            fetchProduct()
+                        })
+
+                }
+            })
     }
 
 
     return (
-        
-
         <div>
-            <div className="container m-auto mt-10">
+            <div className="container m-auto ">
                 <div className='w-full bg-white border-[1px] border-[#d8e0ec] p-5 mb-4'>
                     <Link to="/user/tambah"><p className='px-7 py-2 rounded-md border-[1px] w-min border-black text-black hover:bg-black hover:text-white transition duration-200'>Tambah</p></Link>
                 </div>

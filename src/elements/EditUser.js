@@ -1,34 +1,48 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import swal from 'sweetalert';
 
-function TambahUser() {
+function EditUser() {
     let [nama, setNama] = useState()
     let [username, setUsername] = useState()
     let [password, setPassword] = useState()
     let [outletkirim, setOutletKirim] = useState()
     let [outlet, setOutlet] = useState()
     let [role, setRole] = useState()
+    const params = useParams()
     let navigate = useNavigate()
-    
-    const api = "http://localhost:4000/outlet";
 
     useEffect(async () => {
-        const fetchProduct = async () => {
-            await axios.get(api, {
-                headers : {'Authorization': 'Bearer '+sessionStorage.getItem('token')}
-            })
-                .then(result => {
-                    setOutlet(result.data)
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
         fetchProduct();
+        fetchOutlet();
     }, [])
+    const fetchProduct = async () => {
+        await axios.get(`http://localhost:4000/user/${params.id}`, {
+            headers : {'Authorization': 'Bearer '+sessionStorage.getItem('token')}
+        })
+            .then(result => {
+                setNama(result.data.nama)
+                setUsername(result.data.username)
+                setOutletKirim(result.data.id_outlet)
+                setRole(result.data.role)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
+    const fetchOutlet = async () => {
+        await axios.get(`http://localhost:4000/outlet`, {
+            headers : {'Authorization': 'Bearer '+sessionStorage.getItem('token')}
+        })
+            .then(result => {
+                setOutlet(result.data)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
     function submit(e) {
         e.preventDefault()
         let data = {
@@ -38,17 +52,17 @@ function TambahUser() {
             id_outlet: outletkirim,
             role: role,
         }
-        axios.post('http://localhost:4000/user/', data, {
+        axios.put(`http://localhost:4000/user/${params.id}`, data, {
             headers : {'Authorization': 'Bearer '+sessionStorage.getItem('token')}
         })
             .then(res => {
                 if (res.data.status == "success") {
-                    swal("Sucess", "Sukses menambahkan user", "success")
+                    swal("Sucess", "Sukses merubah user", "success")
                         .then(() => {
                             navigate('/user/')
                         })
                 } else {
-                    swal("Error", "Gagal menambahkan user", "error")
+                    swal("Error", "Gagal merubah user", "error")
                         .then(() => {
                             navigate('/user/')
                         })
@@ -86,7 +100,7 @@ function TambahUser() {
                         </div>
                         <div className='w-full'>
                             <p className='text-base'>Password</p>
-                            <input type="password" className='w-full py-1 pl-5 border-[1px] my-2' onChange={(e) => setPassword(e.target.value)} placeholder='Password' value={password} name="password" required/>
+                            <input type="password" className='w-full py-1 pl-5 border-[1px] my-2' onChange={(e) => setPassword(e.target.value)} placeholder='Password' value={password} name="password"/>
                         </div>
                         <div className='w-full'>
                             <p className='text-base'>Outlet</p>
@@ -114,4 +128,4 @@ function TambahUser() {
     )
 }
 
-export default TambahUser
+export default EditUser

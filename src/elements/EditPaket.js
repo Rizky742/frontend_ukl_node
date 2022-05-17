@@ -60,16 +60,10 @@ function EditPaket() {
             console.log(error)
         })
     }
-    // const clear = () => {
-    //     setNama('')
-    //     setOutlet('')
-    //     setHarga('')
-    // }
-
 
     return (
         <div>
-            <div className="container m-auto mt-10">
+            <div className="container m-auto ">
                 <div className='w-full bg-white border-[1px] border-[#d8e0ec] p-5 mb-4'>
                     <NavLink to="/paket"><p className='px-7 py-2 rounded-md border-[1px] w-min border-black text-black hover:bg-black hover:text-white transition duration-200'>Kembali</p></NavLink>
                 </div>

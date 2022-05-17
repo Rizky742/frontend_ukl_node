@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import swal from 'sweetalert';
-
 function TambahPaket() {
     let [nama, setNama] = useState()
     let [outletkirim, setOutletKirim] = useState()
@@ -67,7 +66,7 @@ function TambahPaket() {
     console.log(outletkirim)
     return (
         <div>
-            <div className="container m-auto mt-10">
+            <div className="container m-auto ">
                 <div className='w-full bg-white border-[1px] border-[#d8e0ec] p-5 mb-4'>
                     <NavLink to="/paket"><p className='px-7 py-2 rounded-md border-[1px] w-min border-black text-black hover:bg-black hover:text-white transition duration-200'>Kembali</p></NavLink>
                 </div>

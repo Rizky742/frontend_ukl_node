@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Pagination from './Pagination';
 import swal from 'sweetalert';
+import currencyFormatter from 'currency-formatter';
 
 function Paket() {
     let [paket, setPaket] = useState([]);
@@ -12,7 +13,6 @@ function Paket() {
 
     useEffect(async() => {
         fetchProduct();
-        
     },[])
 
     const fetchProduct = async () => {
@@ -21,12 +21,13 @@ function Paket() {
         })
             .then(result => {
                 setPaket(result.data)
+                console.log(result)
             })
             .catch(error => {
                 console.log(error);
             })
     }
-    const api = "http://localhost:4000/paket";
+    const api = `http://localhost:4000/paket/test/${sessionStorage.getItem('outlet')}`;
   
 
     const indexOfLastPost = currentPage * postsPerPage;
@@ -64,10 +65,8 @@ function Paket() {
         })
     }
     return (
-        
-
         <div>
-            <div className="container m-auto mt-10">
+            <div className="container m-auto ">
                 <div className='w-full bg-white border-[1px] border-[#d8e0ec] p-5 mb-4'>
                     <Link to="/paket/tambah"><p className='px-7 py-2 rounded-md border-[1px] w-min border-black text-black hover:bg-black hover:text-white transition duration-200'>Tambah</p></Link>
                 </div>
@@ -111,7 +110,7 @@ function Paket() {
                                                         {paket.jenis}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {paket.harga}
+                                                        {currencyFormatter.format(paket.harga, {code: "IDR"})}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                         <Link to={`/paket/edit/${paket.id}`}><button type="button" className="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out mx-2">Edit</button></Link>

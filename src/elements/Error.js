@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 function Error() {
   return (
-    <section className="h-[calc(100vh-60px)] flex bg-primary bg-slate-700 items-center justify-center">
+    <section className="absolute w-full top-0 z-7 h-[calc(100vh)] flex bg-primary bg-slate-700 items-center justify-center">
       <div className="flex -mx-4">
         <div className="w-full">
           <div className="mx-auto max-w-[400px] text-center">
