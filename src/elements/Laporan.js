@@ -7,7 +7,7 @@ function Laporan() {
     let [bulan,setBulan] = useState()
     let [tahun,setTahun] = useState()
     let [hari,setHari] = useState()
-    let [laporan,setLaporan] = useState()
+    let [laporan,setLaporan] = useState([])
 
     useEffect(() => {
         getBulan()
@@ -116,24 +116,25 @@ function Laporan() {
                                         </thead>
                                         <tbody>
                                             {/* {currentPost?.map((paket) => ( */}
-                                                <tr  className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                            {laporan?.map((hasil) => (
+                                                <tr key={hasil.id}  className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {laporan?.nama_paket}
+                                                        {hasil.nama_paket}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {laporan?.total_transaksi}
+                                                        {hasil.total_transaksi}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {laporan?.jmllunas}
+                                                        {hasil.jmllunas}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {laporan?.jmlblmlunas}
+                                                        {hasil.jmlblmlunas}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {currencyFormatter.format(laporan?.total_harga_lunas, {code: 'IDR'})}
+                                                        {currencyFormatter.format(hasil.total_harga_lunas, {code: 'IDR'})}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    {currencyFormatter.format(laporan?.total_harga_belum_lunas, {code: 'IDR'})}
+                                                    {currencyFormatter.format(hasil.total_harga_belum_lunas, {code: 'IDR'})}
                                                     </td>
                                                     {/* <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                         {paket.tb_outlet.nama}
@@ -149,6 +150,8 @@ function Laporan() {
                                                         <button onClick={() => hapus(paket.id)} className="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">Hapus</button>
                                                     </td> */}
                                                 </tr>
+                                            ))}
+                                                
                                             {/* ))} */}
                                         </tbody>
                                     </table>

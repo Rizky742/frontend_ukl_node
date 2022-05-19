@@ -172,7 +172,7 @@ function Transaksi() {
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class={`modal fade fixed top-0 left-0 w-full mt-16 h-full ${isModal ? "" : "hidden"} px-[750px] outline-none overflow-x-hidden overflow-y-auto transition-all bg-black bg-opacity-25`}
+                                <div class={`modal fade fixed top-0 left-0 w-full pt-16 h-full ${isModal ? "" : "hidden"} px-[750px] outline-none overflow-x-hidden overflow-y-auto transition-all bg-black bg-opacity-25`}
                                     id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog relative w-auto pointer-events-none">
                                         <div
